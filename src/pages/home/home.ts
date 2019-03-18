@@ -7,8 +7,16 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  students: Array<string>;
+
   constructor(public navCtrl: NavController) {
 
-  }
+    this.students = [
+      'otavio',
+      'pedro',
+      'rafael',
+      'henrique'
+    ]
 
+  }
 }
