@@ -8,6 +8,14 @@ page-home {
 
   justify-content: center;
   text-align: center;
+
+  h2 {
+    color: color($colors, secondary);
+  }
+
+  p {
+    color: color($colors, primary);
+  }
 }
 
 .logo {
