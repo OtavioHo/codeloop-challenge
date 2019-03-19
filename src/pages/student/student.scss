@@ -1,0 +1,19 @@
+.avatar-container {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: color($colors, secondary);
+}
+
+.avatar {
+  border-radius: 150px;
+  height: 150px;
+}
+
+ion-item {
+  h2 {
+    color: color($colors, primary);
+  }
+}
