@@ -23,7 +23,12 @@ export class AddModal {
   constructor(public viewCtrl: ViewController, private storage: Storage) {}
 
   async send() {
+    const prev = await this.storage.get("students"); // get previous list of students
+
+    const id = !!prev ? prev.length : 0; // if student list is empty set id to 0
+
     const student = {
+      id,
       name: this.name,
       dateBirth: this.dateBirth,
       grade: this.grade,
@@ -39,13 +44,10 @@ export class AddModal {
       payDate: this.payDate
     };
 
-    const prev = await this.storage.get("students");
-    console.log(prev);
-
     if (!prev) {
-      await this.storage.set("students", [student]);
+      await this.storage.set("students", [student]); // if student list is empty add array of list
     } else {
-      await this.storage.set("students", [...prev, student]);
+      await this.storage.set("students", [...prev, student]); // add new student to student list
     }
 
     this.viewCtrl.dismiss();
