@@ -18,7 +18,7 @@ export class HomePage {
     private storage: Storage
   ) {}
 
-  async ngAfterViewInit() {
+  async ionViewWillEnter() {
     this.students = await this.storage.get("students"); // get student list from storage
   }
 
