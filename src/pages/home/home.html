@@ -15,7 +15,11 @@
   </ion-fab>
 
   <ion-list>
-    <ion-item-sliding #item *ngFor="let student of students">
+    <ion-item-sliding
+      #item
+      *ngFor="let student of students"
+      (click)="openStudent()"
+    >
       <ion-item>
         <ion-avatar item-start>
           <img src="http://i.pravatar.cc/300" />

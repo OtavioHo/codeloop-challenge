@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { NavController, ModalController } from "ionic-angular";
 
 import { AddModal } from "../add-modal/add-modal";
+import { StudentPage } from "../student/student";
 
 @Component({
   selector: "page-home",
@@ -20,5 +21,9 @@ export class HomePage {
   openAddModal() {
     let addModal = this.modalCtrl.create(AddModal);
     addModal.present();
+  }
+
+  openStudent() {
+    this.navCtrl.push(StudentPage);
   }
 }
