@@ -1,3 +1,16 @@
 page-home {
+}
 
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  justify-content: center;
+  text-align: center;
+}
+
+.logo {
+  align-self: center;
+  margin: 20px 0 0 0;
 }

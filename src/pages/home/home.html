@@ -1,12 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Alunos
-    </ion-title>
+    <div class="navbar">
+      <img src="../../assets/imgs/codeloop_logo.png" class="logo" />
+      <h2>Challenge</h2>
+    </div>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab top right edge>
+    <button ion-fab (click)="openAddModal()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
   <ion-list>
     <ion-item-sliding #item *ngFor="let student of students">
       <ion-item>
