@@ -1,5 +1,7 @@
 {
   "name": "codeloop-challenge",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }
