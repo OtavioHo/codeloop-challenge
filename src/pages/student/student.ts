@@ -17,7 +17,13 @@ export class StudentPage {
   }
 
   openEditModal() {
-    const editModal = this.modalCtrl.create(AddModal);
+    const editModal = this.modalCtrl.create(AddModal, {
+      student: this.student,
+      edit: true
+    });
+    editModal.onDidDismiss(student => {
+      if (student) this.student = student;
+    });
     editModal.present();
   }
 }
