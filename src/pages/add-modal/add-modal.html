@@ -1,10 +1,82 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons start>
-      <button ion-button (click)="dismiss()">Close</button>
+      <button ion-button (click)="dismiss()">cancel</button>
     </ion-buttons>
-    <ion-title>Modals</ion-title>
+    <ion-title>Add Student</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-item-group>
+    <ion-item-divider color="secondary">Informações Pessoais</ion-item-divider>
+    <ion-item>
+      <ion-label color="primary" stacked>Nome</ion-label>
+      <ion-input placeholder="What's your name?"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Data de Nascimento</ion-label>
+      <ion-datetime
+        displayFormat="DD/MM/YYYY"
+        placeholder="DD/MM/YYYY"
+      ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Série de Ingresso</ion-label>
+      <ion-select>
+        <div *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
+          <ion-option value="{{ number }}"> {{ number }}º ano</ion-option>
+        </div>
+      </ion-select>
+    </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider color="secondary">Endereço</ion-item-divider>
+    <ion-item>
+      <ion-label color="primary" stacked>CEP</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Rua</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Número</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Complemento</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Bairro</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Cidade</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>Estado</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item-divider color="secondary">Dados da Mãe</ion-item-divider>
+    <ion-item>
+      <ion-label color="primary" stacked>Nome da Mãe</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked>CPF da Mãe</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked
+        >Data preferencial para pagamento da mensalidade</ion-label
+      >
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-item-group>
+  <button ion-button full>Enviar</button>
+</ion-content>
