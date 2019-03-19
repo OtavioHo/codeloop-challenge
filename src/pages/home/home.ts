@@ -30,7 +30,7 @@ export class HomePage {
     addModal.present();
   }
 
-  openStudent() {
-    this.navCtrl.push(StudentPage);
+  openStudent(student: any) {
+    this.navCtrl.push(StudentPage, { student });
   }
 }
