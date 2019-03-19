@@ -1,9 +1,23 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, NavParams, ModalController } from "ionic-angular";
+
+import { AddModal } from "../add-modal/add-modal";
 
 @Component({
   templateUrl: "student.html"
 })
 export class StudentPage {
-  constructor(public navCtrl: NavController) {}
+  student: Object;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController
+  ) {
+    this.student = navParams.get("student");
+  }
+
+  openEditModal() {
+    const editModal = this.modalCtrl.create(AddModal);
+    editModal.present();
+  }
 }
