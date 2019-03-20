@@ -38,7 +38,6 @@
         <ion-label color="primary" stacked>Data de Nascimento*</ion-label>
         <ion-datetime
           displayFormat="DD/MM/YYYY"
-          placeholder="DD/MM/YYYY"
           formControlName="dateBirth"
         ></ion-datetime>
       </ion-item>
@@ -185,7 +184,10 @@
         <ion-label color="primary" stacked
           >Data preferencial para pagamento da mensalidade</ion-label
         >
-        <ion-input formControlName="payDate"></ion-input>
+        <ion-datetime
+          displayFormat="DD/MM/YYYY"
+          formControlName="payDate"
+        ></ion-datetime>
       </ion-item>
     </ion-item-group>
   </form>
