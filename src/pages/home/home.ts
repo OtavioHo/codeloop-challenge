@@ -11,6 +11,8 @@ import { StudentPage } from "../student/student";
 })
 export class HomePage {
   students: Array<Object>;
+  filter: Array<Object>;
+  searchValue: string;
 
   constructor(
     public navCtrl: NavController,
@@ -20,12 +22,14 @@ export class HomePage {
 
   async ionViewWillEnter() {
     this.students = await this.storage.get("students"); // get student list from storage
+    this.filter = this.students;
   }
 
   openAddModal() {
     const addModal = this.modalCtrl.create(AddModal);
     addModal.onDidDismiss(async () => {
       this.students = await this.storage.get("students"); // get student list afte modal is closed
+      this.filter = this.students;
     });
     addModal.present();
   }
@@ -41,6 +45,7 @@ export class HomePage {
     });
     editModal.onDidDismiss(async () => {
       this.students = await this.storage.get("students"); // get student list afte modal is closed
+      this.filter = this.students;
     });
     editModal.present();
   }
@@ -51,5 +56,14 @@ export class HomePage {
       this.students.filter(s => s["id"] !== id)
     );
     this.students = await this.storage.get("students");
+    this.filter = this.students;
+  }
+
+  search(event: any) {
+    const search = this.searchValue.toLowerCase();
+    this.filter = this.students.filter(s => {
+      let target = s["name"].toLowerCase();
+      if (target.includes(search)) return s;
+    });
   }
 }

@@ -1,9 +1,15 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="secondary">
     <ion-title>
       Alunos
     </ion-title>
   </ion-navbar>
+  <ion-searchbar
+    class="search"
+    [(ngModel)]="searchValue"
+    (ionInput)="search($event)"
+  >
+  </ion-searchbar>
 </ion-header>
 
 <ion-content>
@@ -18,7 +24,14 @@
       Ainda não há alunos
     </div>
 
-    <ion-item-sliding #item *ngFor="let student of students">
+    <div
+      *ngIf="filter?.length == 0 && students?.length > 0"
+      class="no-students"
+    >
+      Aluno não encontrado
+    </div>
+
+    <ion-item-sliding #item *ngFor="let student of filter">
       <ion-item (click)="openStudent(student)">
         <h2 class="name">{{ student.name }}</h2>
       </ion-item>
