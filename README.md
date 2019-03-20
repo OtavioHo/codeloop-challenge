@@ -64,7 +64,7 @@ Para a validação do CPF foi utilizado o algoritmo disponibilizado pela receita
 
 ### Visualização dos alunos cadastrados
 
-Todos os alunos cadastrados são exibidos em uma lista na página inicial do aplicativo.
+Todos os alunos cadastrados são exibidos em uma lista na página inicial do aplicativo em ordem alfabética.
 
 ### Criar um novo aluno
 
