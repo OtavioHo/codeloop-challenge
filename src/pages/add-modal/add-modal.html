@@ -72,7 +72,7 @@
       <ion-item-divider color="secondary">Endereço</ion-item-divider>
 
       <ion-item>
-        <ion-label color="primary" stacked>CEP</ion-label>
+        <ion-label color="primary" stacked>CEP*</ion-label>
         <ion-input formControlName="zip"></ion-input>
       </ion-item>
 
@@ -167,6 +167,20 @@
         <ion-label color="primary" stacked>CPF da Mãe*</ion-label>
         <ion-input formControlName="motherCPF"></ion-input>
       </ion-item>
+
+      <div
+        class="warning"
+        *ngIf="
+          !form.controls.motherCPF.valid &&
+          (form.controls.motherCPF.dirty || submitAttempt)
+        "
+      >
+        <span *ngIf="form.controls.motherCPF.errors.required; else invalidcpf">
+          *Campo obrigatório
+        </span>
+        <ng-template #invalidcpf>*CPF inválido</ng-template>
+      </div>
+
       <ion-item>
         <ion-label color="primary" stacked
           >Data preferencial para pagamento da mensalidade</ion-label

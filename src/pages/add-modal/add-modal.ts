@@ -46,7 +46,10 @@ export class AddModal {
         "",
         Validators.compose([Validators.maxLength(100), Validators.required])
       ],
-      motherCPF: ["", Validators.required],
+      motherCPF: [
+        "",
+        Validators.compose([Validators.required, this.validator.cpfValidator])
+      ],
       payDate: [""]
     });
 

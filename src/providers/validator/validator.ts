@@ -21,8 +21,8 @@ export class ValidatorProvider {
 
     return new Promise(resolve => {
       response.subscribe(
-        (data: Object) => {
-          if (data.cep) resolve(null);
+        data => {
+          if (data["cep"]) resolve(null);
           else resolve({ erro: "CEP inválido" });
         },
         error => {
@@ -30,5 +30,28 @@ export class ValidatorProvider {
         }
       );
     });
+  }
+
+  cpfValidator(control: FormControl) {
+    //Verifica se CPF é válido
+    let Soma;
+    let Resto;
+    Soma = 0;
+    //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
+    if (control.value == "00000000000") return { erro: "CPF inválido" };
+    for (let i = 1; i <= 9; i++)
+      Soma = Soma + parseInt(control.value.substring(i - 1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
+    if (Resto == 10 || Resto == 11) Resto = 0;
+    if (Resto != parseInt(control.value.substring(9, 10)))
+      return { erro: "CPF inválido" };
+    Soma = 0;
+    for (let i = 1; i <= 10; i++)
+      Soma = Soma + parseInt(control.value.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+    if (Resto == 10 || Resto == 11) Resto = 0;
+    if (Resto != parseInt(control.value.substring(10, 11)))
+      return { erro: "CPF inválido" };
+    return null;
   }
 }
