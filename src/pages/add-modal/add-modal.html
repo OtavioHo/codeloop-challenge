@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="form">
+  <form [formGroup]="form" (ngSubmit)="send()">
     <ion-item-group>
       <ion-item-divider color="secondary">
         Informações Pessoais
@@ -190,6 +190,6 @@
         ></ion-datetime>
       </ion-item>
     </ion-item-group>
+    <button ion-button full type="submit">Enviar</button>
   </form>
-  <button ion-button full (click)="send()">Enviar</button>
 </ion-content>
