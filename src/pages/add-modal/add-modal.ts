@@ -95,13 +95,15 @@ export class AddModal {
 
     await this.storage.set(
       "students",
-      prev.map(s => {
-        //substitute old student for new
-        if (s.id === id) {
-          return student;
-        }
-        return s;
-      })
+      prev
+        .map(s => {
+          //substitute old student for new
+          if (s.id === id) {
+            return student;
+          }
+          return s;
+        })
+        .sort((a, b) => a.name.localeCompare(b.name)) // Sort list
     );
 
     this.viewCtrl.dismiss(student); // send new student back to student page
@@ -117,7 +119,10 @@ export class AddModal {
     if (!prev) {
       await this.storage.set("students", [student]); // if student list is empty add array of list
     } else {
-      await this.storage.set("students", [...prev, student]); // add new student to student list
+      await this.storage.set(
+        "students",
+        [...prev, student].sort((a, b) => a.name.localeCompare(b.name)) // Sort list
+      ); // add new student to student list
     }
 
     this.viewCtrl.dismiss();
