@@ -1,34 +1,50 @@
 import { Component } from "@angular/core";
 import { ViewController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   templateUrl: "add-modal.html"
 })
 export class AddModal {
-  name: string;
-  dateBirth: string;
-  grade: number;
-  zip: number;
-  street: string;
-  number: number;
-  complement: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  motherName: string;
-  motherCPF: number;
-  payDate: number;
   isEdit: Boolean;
   title: string;
+
+  form: FormGroup;
+
+  submitAttempt: Boolean;
 
   constructor(
     public viewCtrl: ViewController,
     private storage: Storage,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public formBuilder: FormBuilder
   ) {
     this.title = "Adicionar Aluno";
+    this.submitAttempt = false;
     this.isEdit = navParams.get("edit");
+
+    this.form = formBuilder.group({
+      name: [
+        "",
+        Validators.compose([Validators.maxLength(100), Validators.required])
+      ],
+      dateBirth: ["", Validators.required],
+      grade: ["", Validators.required],
+      zip: ["", Validators.required],
+      street: ["", Validators.compose([Validators.maxLength(120)])],
+      number: ["", Validators.pattern("^[0-9]")],
+      complement: ["", Validators.maxLength(50)],
+      neighborhood: ["", Validators.maxLength(100)],
+      city: [""],
+      state: [""],
+      motherName: [
+        "",
+        Validators.compose([Validators.maxLength(100), Validators.required])
+      ],
+      motherCPF: ["", Validators.required],
+      payDate: [""]
+    });
 
     if (this.isEdit) {
       const {
@@ -47,27 +63,28 @@ export class AddModal {
         payDate
       } = navParams.get("student");
 
-      this.name = name;
-      this.dateBirth = dateBirth;
-      this.grade = grade;
-      this.zip = zip;
-      this.street = street;
-      this.number = number;
-      this.complement = complement;
-      this.neighborhood = neighborhood;
-      this.city = city;
-      this.state = state;
-      this.motherName = motherName;
-      this.motherCPF = motherCPF;
-      this.payDate = payDate;
-      this.title = "Editar Aluno";
+      this.form.setValue({
+        name: name || "",
+        dateBirth: dateBirth || "",
+        grade: grade || "",
+        zip: zip || "",
+        street: street || "",
+        number: number || "",
+        complement: complement || "",
+        neighborhood: neighborhood || "",
+        city: city || "",
+        state: state || "",
+        motherName: motherName || "",
+        motherCPF: motherCPF || "",
+        payDate: payDate || ""
+      });
     }
   }
 
-  async edit(prev, student) {
+  async edit(prev) {
     const { id } = this.navParams.get("student");
 
-    student.id = id; // set student id
+    const student = { ...this.form.value, id };
 
     await this.storage.set(
       "students",
@@ -83,10 +100,10 @@ export class AddModal {
     this.viewCtrl.dismiss(student); // send new student back to student page
   }
 
-  async create(prev, student) {
+  async create(prev) {
     const id = !!prev ? prev.length : 0; // if student list is empty set id to 0
 
-    student.id = id;
+    const student = { ...this.form.value, id };
 
     if (!prev) {
       await this.storage.set("students", [student]); // if student list is empty add array of list
@@ -100,31 +117,17 @@ export class AddModal {
   async send() {
     const prev = await this.storage.get("students"); // get previous list of students
 
-    const student = {
-      // Build student object
-      id: null,
-      name: this.name,
-      dateBirth: this.dateBirth,
-      grade: this.grade,
-      zip: this.zip,
-      street: this.street,
-      number: this.number,
-      complement: this.complement,
-      neighborhood: this.neighborhood,
-      city: this.city,
-      state: this.state,
-      motherName: this.motherName,
-      motherCPF: this.motherCPF,
-      payDate: this.payDate
-    };
-
-    if (!this.isEdit) {
-      // Create new student
-      this.create(prev, student);
-    } else {
-      // Edit existent student
-      this.edit(prev, student);
+    if (this.form.valid) {
+      if (!this.isEdit) {
+        // Create new student
+        this.create(prev);
+      } else {
+        // Edit existent student
+        this.edit(prev);
+      }
     }
+
+    this.submitAttempt = true;
   }
 
   dismiss() {

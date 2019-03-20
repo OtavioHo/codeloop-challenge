@@ -8,76 +8,160 @@
 </ion-header>
 
 <ion-content>
-  <ion-item-group>
-    <ion-item-divider color="secondary">Informações Pessoais</ion-item-divider>
-    <ion-item>
-      <ion-label color="primary" stacked>Nome</ion-label>
-      <ion-input [(ngModel)]="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Data de Nascimento</ion-label>
-      <ion-datetime
-        displayFormat="DD/MM/YYYY"
-        placeholder="DD/MM/YYYY"
-        [(ngModel)]="dateBirth"
-      ></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Série de Ingresso</ion-label>
-      <ion-select [(ngModel)]="grade">
-        <div *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
-          <ion-option value="{{ number }}"> {{ number }}º ano</ion-option>
-        </div>
-      </ion-select>
-    </ion-item>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider color="secondary">Endereço</ion-item-divider>
-    <ion-item>
-      <ion-label color="primary" stacked>CEP</ion-label>
-      <ion-input [(ngModel)]="zip"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Rua</ion-label>
-      <ion-input [(ngModel)]="street"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Número</ion-label>
-      <ion-input [(ngModel)]="number"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Complemento</ion-label>
-      <ion-input [(ngModel)]="complement"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Bairro</ion-label>
-      <ion-input [(ngModel)]="neighborhood"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Cidade</ion-label>
-      <ion-input [(ngModel)]="city"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>Estado</ion-label>
-      <ion-input [(ngModel)]="state"></ion-input>
-    </ion-item>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider color="secondary">Dados da Mãe</ion-item-divider>
-    <ion-item>
-      <ion-label color="primary" stacked>Nome da Mãe</ion-label>
-      <ion-input [(ngModel)]="motherName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked>CPF da Mãe</ion-label>
-      <ion-input [(ngModel)]="motherCPF"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked
-        >Data preferencial para pagamento da mensalidade</ion-label
+  <form [formGroup]="form">
+    <ion-item-group>
+      <ion-item-divider color="secondary">
+        Informações Pessoais
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Nome*</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+
+      <div
+        class="warning"
+        *ngIf="
+          !form.controls.name.valid &&
+          (form.controls.name.dirty || submitAttempt)
+        "
       >
-      <ion-input [(ngModel)]="payDate"></ion-input>
-    </ion-item>
-  </ion-item-group>
+        <span *ngIf="form.controls.name.errors.required">
+          *Campo obrigatório
+        </span>
+        <span *ngIf="form.controls.name.errors.maxlength">
+          *Nome muito comprido
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Data de Nascimento*</ion-label>
+        <ion-datetime
+          displayFormat="DD/MM/YYYY"
+          placeholder="DD/MM/YYYY"
+          formControlName="dateBirth"
+        ></ion-datetime>
+      </ion-item>
+
+      <div
+        class="warning"
+        *ngIf="!form.controls.dateBirth.valid && submitAttempt"
+      >
+        <span *ngIf="form.controls.dateBirth.errors.required">
+          *Campo obrigatório
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Série de Ingresso*</ion-label>
+        <ion-select formControlName="grade">
+          <div *ngFor="let number of [1, 2, 3, 4, 5, 6, 7, 8, 9]">
+            <ion-option value="{{ number }}"> {{ number }}º ano</ion-option>
+          </div>
+        </ion-select>
+      </ion-item>
+
+      <div class="warning" *ngIf="!form.controls.grade.valid && submitAttempt">
+        <span *ngIf="form.controls.grade.errors.required">
+          *Campo obrigatório
+        </span>
+      </div>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider color="secondary">Endereço</ion-item-divider>
+
+      <ion-item>
+        <ion-label color="primary" stacked>CEP</ion-label>
+        <ion-input formControlName="zip"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Rua</ion-label>
+        <ion-input formControlName="street"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Número</ion-label>
+        <ion-input formControlName="number" type="number"></ion-input>
+      </ion-item>
+
+      <div class="warning" *ngIf="!form.controls.number.valid && submitAttempt">
+        <span>
+          *Precisa ser um número
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Complemento</ion-label>
+        <ion-input formControlName="complement"></ion-input>
+      </ion-item>
+
+      <div class="warning" *ngIf="!form.controls.complement.valid">
+        <span>
+          *Complemento muito comprido
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Bairro</ion-label>
+        <ion-input formControlName="neighborhood"></ion-input>
+      </ion-item>
+
+      <div
+        class="warning"
+        *ngIf="!form.controls.neighborhood.valid && submitAttempt"
+      >
+        <span>
+          *Bairro muito comprido
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Cidade</ion-label>
+        <ion-input formControlName="city"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Estado</ion-label>
+        <ion-input formControlName="state"></ion-input>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider color="secondary">Dados da Mãe</ion-item-divider>
+
+      <ion-item>
+        <ion-label color="primary" stacked>Nome da Mãe*</ion-label>
+        <ion-input formControlName="motherName"></ion-input>
+      </ion-item>
+
+      <div
+        class="warning"
+        *ngIf="
+          !form.controls.motherName.valid &&
+          (form.controls.motherName.dirty || submitAttempt)
+        "
+      >
+        <span *ngIf="form.controls.motherName.errors.required">
+          *Campo obrigatório
+        </span>
+        <span *ngIf="form.controls.motherName.errors.maxlength">
+          *Nome muito comprido
+        </span>
+      </div>
+
+      <ion-item>
+        <ion-label color="primary" stacked>CPF da Mãe*</ion-label>
+        <ion-input formControlName="motherCPF"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked
+          >Data preferencial para pagamento da mensalidade</ion-label
+        >
+        <ion-input formControlName="payDate"></ion-input>
+      </ion-item>
+    </ion-item-group>
+  </form>
   <button ion-button full (click)="send()">Enviar</button>
 </ion-content>
