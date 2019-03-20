@@ -108,7 +108,9 @@ export class AddModal {
   }
 
   async create(prev) {
-    const id = !!prev ? prev.length : 0; // if student list is empty set id to 0
+    const id = Math.random()
+      .toString(36)
+      .substr(2, 9); // generate ID
 
     const student = { ...this.form.value, id };
 
