@@ -33,4 +33,23 @@ export class HomePage {
   openStudent(student: any) {
     this.navCtrl.push(StudentPage, { student });
   }
+
+  openEditModal(student: any) {
+    const editModal = this.modalCtrl.create(AddModal, {
+      student: student,
+      edit: true
+    });
+    editModal.onDidDismiss(async () => {
+      this.students = await this.storage.get("students"); // get student list afte modal is closed
+    });
+    editModal.present();
+  }
+
+  async delete(id: string) {
+    await this.storage.set(
+      "students",
+      this.students.filter(s => s["id"] !== id)
+    );
+    this.students = await this.storage.get("students");
+  }
 }
