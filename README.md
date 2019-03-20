@@ -59,3 +59,38 @@ Dessa forma foi usado a validação assíncrona do Validators.
 #### CPF
 
 Para a validação do CPF foi utilizado o algoritmo disponibilizado pela receita federal (http://www.receita.fazenda.gov.br/aplicacoes/atcta/cpf/funcoes.js)
+
+## Funcionalidades
+
+### Visualização dos alunos cadastrados
+
+Todos os alunos cadastrados são exibidos em uma lista na página inicial do aplicativo.
+
+### Criar um novo aluno
+
+O formulário de criação de um novo aluno pode ser acessado por um FAB(Floating Action Button) na página inicial.
+A criação do aluno só é realizada se todos os campos do formulário forem válidos.
+
+### Editar aluno
+
+A página de edição de aluno pode ser acessada tanto pela página inicial (deslizando para a esquerda o item que você deseja editar) quanto pela página de visualização do aluno (FAB).
+A página de edição é a mesma de criação com o formulário já preenchido com as informações do aluno.
+A edição do aluno só é realizada se todos os campos do formulário forem válidos.
+
+### Deletar aluno
+
+Assim como a edição a deleção de um aluno pode ser feita tanto na página inicial como na página de visualização do aluno.
+
+## Instruções de uso
+
+- Para executar o aplicativo localmente e acessa-lo via browser:
+
+1.  clone o repositório `git clone https://github.com/OtavioHo/codeloop-challenge`
+2.  acesse a pasta do repositório `cd codeloop-challenge`
+3.  `ionic serve`
+
+- Para rodar no android
+
+1. clone o repositório `git clone https://github.com/OtavioHo/codeloop-challenge`
+2. acesse a pasta do repositório `cd codeloop-challenge`
+3. `ionic cordova run android --device`.
