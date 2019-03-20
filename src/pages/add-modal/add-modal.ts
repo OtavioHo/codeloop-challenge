@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { ViewController, NavParams } from "ionic-angular";
 import { Storage } from "@ionic/storage";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { ValidatorProvider } from "../../providers/validator/validator";
 
 @Component({
   templateUrl: "add-modal.html"
@@ -18,7 +20,9 @@ export class AddModal {
     public viewCtrl: ViewController,
     private storage: Storage,
     public navParams: NavParams,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public validator: ValidatorProvider,
+    public http: HttpClient
   ) {
     this.title = "Adicionar Aluno";
     this.submitAttempt = false;
@@ -31,7 +35,7 @@ export class AddModal {
       ],
       dateBirth: ["", Validators.required],
       grade: ["", Validators.required],
-      zip: ["", Validators.required],
+      zip: ["", Validators.required, this.validator.cepValidator.bind(this)],
       street: ["", Validators.compose([Validators.maxLength(120)])],
       number: ["", Validators.pattern("^[0-9]")],
       complement: ["", Validators.maxLength(50)],

@@ -76,6 +76,18 @@
         <ion-input formControlName="zip"></ion-input>
       </ion-item>
 
+      <div
+        class="warning"
+        *ngIf="
+          !form.controls.zip.valid && (submitAttempt || form.controls.zip.dirty)
+        "
+      >
+        <span *ngIf="form.controls.zip.errors?.required; else invalidcep">
+          *Campo obrigatório
+        </span>
+        <ng-template #invalidcep>*Cep inválido</ng-template>
+      </div>
+
       <ion-item>
         <ion-label color="primary" stacked>Rua</ion-label>
         <ion-input formControlName="street"></ion-input>
