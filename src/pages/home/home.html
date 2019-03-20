@@ -1,11 +1,8 @@
 <ion-header>
   <ion-navbar>
-    <div class="navbar">
-      <img src="../../assets/imgs/codeloop_logo.png" class="logo" />
-      <p>
-        Processo seletivo para Mobile Developer
-      </p>
-    </div>
+    <ion-title>
+      Alunos
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -17,11 +14,12 @@
   </ion-fab>
 
   <ion-list>
+    <div *ngIf="students?.length == 0" class="no-students">
+      Ainda não há alunos
+    </div>
+
     <ion-item-sliding #item *ngFor="let student of students">
       <ion-item (click)="openStudent(student)">
-        <ion-avatar item-start>
-          <img src="http://i.pravatar.cc/300" />
-        </ion-avatar>
         <h2 class="name">{{ student.name }}</h2>
       </ion-item>
       <ion-item-options side="right">
