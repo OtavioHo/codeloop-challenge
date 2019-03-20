@@ -16,9 +16,6 @@ export class ValidatorProvider {
     const response = this.http.get(
       `https://viacep.com.br/ws/${control.value}/json/`
     );
-
-    console.log(response);
-
     return new Promise(resolve => {
       response.subscribe(
         data => {
